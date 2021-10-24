@@ -3,6 +3,8 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Covid from "../pages/Covid";
+import Programming from "../pages/Programming";
 import Saved from "../pages/Saved";
 
 export default function BaseRouter() {
@@ -11,6 +13,8 @@ export default function BaseRouter() {
       <Route exact path="/" component={Home}/>
       <Route path="/about" component={About}/>
       <Route path="/saved" component={Saved}/>
+      <Route path="/programming" component={Programming}/>
+      <Route path="/covid" component={Covid} />
     </Switch>
   );
 }
