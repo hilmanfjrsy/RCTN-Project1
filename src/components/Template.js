@@ -17,10 +17,10 @@ export default function Template({ children }) {
               <Link to="/">Indonesia</Link>
             </Navbar.Text>
             <Navbar.Text>
-              <Link to="/">Programming</Link>
+              <Link to="/programming">Programming</Link>
             </Navbar.Text>
             <Navbar.Text>
-              <Link to="/">COVID-19</Link>
+              <Link to="/covid">COVID-19</Link>
             </Navbar.Text>
             <Navbar.Text>
               <Link to="/saved">Saved</Link>
