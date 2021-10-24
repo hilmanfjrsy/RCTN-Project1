@@ -1,0 +1,54 @@
+a{
+  text-decoration: none !important;
+  margin-right: 20px !important;
+  color: black !important;
+}
+
+.card-container{
+  box-shadow: 0px 0px 5px 3px #e2e2e2;
+  width: 300px;
+  border-radius: 10px;
+  margin: 15px;
+}
+p{
+  margin-bottom: 0px !important; 
+}
+.card-image{
+  width: 300px;
+  border-radius: 10px 10px 0px 0px;
+  object-fit: cover;
+}
+.card-text{
+  padding: 15px;
+}
+
+.name{
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.author{
+  font-size: 12px;
+  color: grey;
+}
+
+.title{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.description{
+  font-size: 14px;
+  font-weight: normal;
+  color: grey;
+}
+
+.btn-bookmark{
+  background-color: white;
+  /* box-shadow: 0px 0px 3px 1px #d8d8d8; */
+  /* height: 50px;
+  width: 50px; */
+  /* margin-top: -40px; */
+  /* position: absolute; */
+  border: 0px transparent;
+}
