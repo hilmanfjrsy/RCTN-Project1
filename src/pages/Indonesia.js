@@ -5,14 +5,14 @@ import { getRequest } from "../config/GlobalFunc";
 
 export default function Indonesia() {
   const [indonesia, setIndonesia] = useState([]);
-  async function IndonesianNews() {
+  async function indonesianNews() {
     let res = await getRequest("v2/top-headlines?country=id");
     setIndonesia(res.data.articles);
     console.log(res.data.articles);
   }
 
   useEffect(() => {
-    IndonesianNews();
+    indonesianNews();
   }, []);
   return (
     <div className="style-Indo">
