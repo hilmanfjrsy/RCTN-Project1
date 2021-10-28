@@ -22,7 +22,7 @@ export default function Template({ children }) {
             navbarScroll
           >
             <Navbar.Text>
-              <Link to="/indonesia">Indonesia</Link>
+              <Link to="/">Home</Link>
             </Navbar.Text>
             <Navbar.Text>
               <Link to="/programming">Programming</Link>
