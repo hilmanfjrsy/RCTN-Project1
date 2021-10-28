@@ -1,7 +1,15 @@
-import React, { Component } from 'react';
-import { Container, Nav, Navbar, Form, FormControl, Button, NavDropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import '../Global-styles.css'
+import React, { Component } from "react";
+import {
+  Container,
+  Nav,
+  Navbar,
+  Form,
+  FormControl,
+  Button,
+  NavDropdown,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "../Global-styles.css";
 
 export default function Template({ children }) {
   return (
@@ -10,11 +18,11 @@ export default function Template({ children }) {
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
+            style={{ maxHeight: "100px" }}
             navbarScroll
           >
             <Navbar.Text>
-              <Link to="/">Indonesia</Link>
+              <Link to="/indonesia">Indonesia</Link>
             </Navbar.Text>
             <Navbar.Text>
               <Link to="/programming">Programming</Link>
@@ -39,5 +47,5 @@ export default function Template({ children }) {
       </Navbar>
       {children}
     </Container>
-  )
+  );
 }
