@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import Covid from "../pages/Covid";
-import Programming from "../pages/Home";
+import Programming from "../pages/Programming";
 import Saved from "../pages/Saved";
 import Home from "../pages/Home";
 
