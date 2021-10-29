@@ -1,16 +1,30 @@
 import moment from 'moment';
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux'
+import { removeSaved, addSaved } from '../redux/slice/savedSlice'
 import { toast } from 'react-toastify';
 import { GlobalVar } from '../config/GlobalVar';
 import imageEmpty from '../assets/noimage.png'
 
 export default function CardNews({ item, index }) {
+  const dispatch = useDispatch()
+  const saved = useSelector((state) => state.saved.value)
   const [bookmark, setBookmark] = useState(false)
-  const [imageError, setImageError] = useState(false)
+
+  useEffect(() => {
+    let checkBookmark = saved.find(save => JSON.stringify(save) === JSON.stringify(item))
+    if (checkBookmark) {
+      setBookmark(true)
+    } else {
+      setBookmark(false)
+    }
+  }, [item])
+
+
   return (
     <div className="card-container">
-      <img setImageError={() => setImageError(true)} src={imageError || !item.urlToImage ? imageEmpty : item.urlToImage} className="card-image" />
+      <img src={!item.urlToImage ? imageEmpty : item.urlToImage} className="card-image" />
       <div className="card-text">
         <Row>
           <Col xs={8} md={10}>
@@ -19,7 +33,7 @@ export default function CardNews({ item, index }) {
           </Col>
           <Col xs={4} md={2}>
             <button
-              onClick={() => { bookmarkAction() }}
+              onClick={() => { bookmarkAction(item) }}
               className="btn-bookmark">
               <i className="fas fa-bookmark" style={{ fontSize: 20, color: bookmark ? GlobalVar.baseColor : GlobalVar.greyColor }} ></i>
             </button>
@@ -34,10 +48,12 @@ export default function CardNews({ item, index }) {
     </div>
   )
 
-  function bookmarkAction() {
+  function bookmarkAction(item) {
     if (bookmark) {
+      dispatch(removeSaved(item))
       toast.error("Deleted Bookmark", GlobalVar.toastOption)
     } else {
+      dispatch(addSaved(item))
       toast.success("Saved Bookmark", GlobalVar.toastOption)
     }
     setBookmark(!bookmark)
