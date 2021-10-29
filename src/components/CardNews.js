@@ -24,7 +24,7 @@ export default function CardNews({ item, index }) {
 
   return (
     <div className="card-container">
-      <img src={!item.urlToImage ? imageEmpty : item.urlToImage} className="card-image" />
+      <img src={!item.urlToImage ? imageEmpty : item.urlToImage} onError={(e) => (e.target.onerror = null, e.target.src = imageEmpty)} className="card-image" />
       <div className="card-text">
         <Row>
           <Col xs={8} md={10}>
