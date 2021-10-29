@@ -6,6 +6,7 @@ export async function getRequest(path) {
   try {
     const response = await axios.get('https://newsapi.org/' + path + "&apiKey=" + GlobalVar.apiKey);
     if(response){
+      console.log('sini',response)
       return response;
     }
   } catch (error) {
