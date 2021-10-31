@@ -15,7 +15,7 @@ export default function Indonesia() {
     indonesianNews();
   }, []);
   return (
-    <div className="style-Indo">
+    <div className="wrap container">
       {indonesia.map((item, index) => (
         <CardNews item={item} index={index} key={index} />
       ))}
