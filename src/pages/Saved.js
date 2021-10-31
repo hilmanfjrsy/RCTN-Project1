@@ -6,7 +6,7 @@ export default function Saved() {
   const saved = useSelector((state) => state.saved.value)
 
   return (
-    <div>
+    <div className="wrap container">
       {saved.length > 0 ?
         saved.map((item, index) => (
           <CardNews item={item} index={index} key={index} />

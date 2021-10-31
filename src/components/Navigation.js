@@ -1,10 +1,12 @@
 import React from "react";
-import { SearchIcon } from "@heroicons/react/solid";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
+  const saved = useSelector((state) => state.saved.value)
+
   return (
-    <nav className="navbar navbar-expand-lg container">
+    <nav className="navbar navbar-expand-lg sticky-top">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <img
@@ -47,26 +49,29 @@ const Navigation = () => {
                 Indonesia
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item position-relative">
               <Link to="/saved" className="nav-link">
                 Saved
+                <span class="position-absolute mt-1 ml-1 start-100 translate-middle badge rounded-pill bg-warning">
+                  {saved.length == 0 ? null : saved.length > 99 ? '99+' : saved.length}
+                </span>
               </Link>
             </li>
           </ul>
-          
 
-            <div className="search-box">
-              <button className="btn-search">
-               <SearchIcon className="icon-search" />
-              </button>
-              <input
-                type="text"
-                className="input-search"
-                placeholder="Type to Search..."
-              />
-            </div>
-            
-          
+
+          <div className="search-box">
+            <button className="btn-search">
+              <i className="fas fa-search" style={{ color: 'black' }}></i>
+            </button>
+            <input
+              type="text"
+              className="input-search"
+              placeholder="Type to Search..."
+            />
+          </div>
+
+
         </div>
       </div>
     </nav>

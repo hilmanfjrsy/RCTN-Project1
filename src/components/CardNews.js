@@ -26,21 +26,21 @@ export default function CardNews({ item, index }) {
     <div className="card-container">
       <img src={!item.urlToImage ? imageEmpty : item.urlToImage} onError={(e) => (e.target.onerror = null, e.target.src = imageEmpty)} className="card-image" />
       <div className="card-text">
-        <Row>
-          <Col xs={8} md={10}>
+        <div className="d-flex row justify-content-between align-items-center mb-1">
+          <div className="col-md-10">
             <p className="name" style={{ color: GlobalVar.baseColor }}>{item.source?.name}</p>
-            {item.author ? <p className="author mb-3">by {item.author}</p> : null}
-          </Col>
-          <Col xs={4} md={2}>
+            {item.author ? <p className="author">by {item.author}</p> : null}
+          </div>
+          <div className="col-md-2 p-0">
             <button
               onClick={() => { bookmarkAction(item) }}
-              className="btn-bookmark">
+              className="btn-bookmark m-0">
               <i className="fas fa-bookmark" style={{ fontSize: 20, color: bookmark ? GlobalVar.baseColor : GlobalVar.greyColor }} ></i>
             </button>
-          </Col>
-        </Row>
+          </div>
+        </div>
         <a href={item.url} target="_blank">
-          <h6 className="title" style={{ color: GlobalVar.baseColor }}>{item.title}</h6>
+          <h6 className="title clamp">{item.title}</h6>
         </a>
         <p className="description">{item.description}</p>
         <p className="author mt-3">Published {moment(item.publishedAt).format('DD MMM YYYY')}</p>

@@ -3,7 +3,7 @@ import BigCard from "../components/BigCard";
 import HorizontalCard from "../components/HorizontalCard";
 import moment from "moment";
 import { getRequest } from "../config/GlobalFunc";
-import DefaultCard from "../components/DefaultCard";
+import CardNews from "../components/CardNews";
 
 const Programming = () => {
   const [programming, setProramming] = useState([]);
@@ -59,9 +59,8 @@ async function lastOneMonthProgramming(){
       <h4 className="mt-5">Programming Last One Month</h4>
       <div className="wrap">
         {lastProgramming.map((item,index)=>{
-          return <DefaultCard key={index} Url={item.url} urlImage={item.urlToImage} Title={item.title} Date={moment(item.publishedAt).format('DD MMM YYYY')} Description={item.description}/>
+          return <CardNews key={index} item={item} index={index} />
         })}
-        <DefaultCard />  
       </div>
       <hr className="hr" />  
     </div>

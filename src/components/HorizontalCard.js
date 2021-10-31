@@ -1,4 +1,3 @@
-import { BookmarkIcon } from "@heroicons/react/solid";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { GlobalVar } from "../config/GlobalVar";
@@ -18,16 +17,12 @@ const HorizontalCard = ({ Title, urlImage, Date , Url}) => {
               }}
               className="btn-bookmark"
             >
-              <BookmarkIcon
-                style={{
-                  color: bookmark ? GlobalVar.baseColor : GlobalVar.greyColor,
-                }}
-              />
+              <i className="fas fa-bookmark" style={{ fontSize: 20, color: bookmark ? GlobalVar.baseColor : GlobalVar.greyColor }} ></i>
             </button>
         </div>
         <div className="col-md-5">
           <div className="card-body">
-            <a href={Url}><h5 className="card-title-horizontal fs-6 clamp">{Title}</h5></a>
+            <a href={Url} target="_blank"><h6 className="title fs-6 clamp">{Title}</h6></a>
             <p className="fs-6">
               <small className="text-muted">Published {Date}</small>
             </p>
