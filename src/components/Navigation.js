@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -52,7 +52,7 @@ const Navigation = () => {
             <li className="nav-item position-relative">
               <Link to="/saved" className="nav-link">
                 Saved
-                <span class="position-absolute mt-1 ml-1 start-100 translate-middle badge rounded-pill bg-warning">
+                <span className="position-absolute mt-1 ml-1 start-100 translate-middle badge rounded-pill bg-warning">
                   {saved.length == 0 ? null : saved.length > 99 ? '99+' : saved.length}
                 </span>
               </Link>

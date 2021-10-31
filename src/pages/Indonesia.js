@@ -1,5 +1,4 @@
 import React, { Component, useEffect, useState } from "react";
-// import { Container } from "react-bootstrap";
 import CardNews from "../components/CardNews";
 import { getRequest } from "../config/GlobalFunc";
 

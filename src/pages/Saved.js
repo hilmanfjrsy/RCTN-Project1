@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from "react";
 import CardNews from "../components/CardNews";
 import { useSelector } from "react-redux";
+import EmptyPages from "../components/EmptyPages";
 
 export default function Saved() {
   const saved = useSelector((state) => state.saved.value)
@@ -12,7 +13,7 @@ export default function Saved() {
           <CardNews item={item} index={index} key={index} />
         ))
         :
-        <p>data tidak ditemukan</p>
+        <EmptyPages />
       }
     </div>
   );
