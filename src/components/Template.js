@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   Container,
   Nav,
@@ -14,6 +14,19 @@ import { Link } from "react-router-dom";
 import "../Global-styles.css";
 
 export default function Template({ children }) {
+<<<<<<< Updated upstream
+=======
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearchValue(value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+>>>>>>> Stashed changes
   const saved = useSelector((state) => state.saved.value);
 
   return (
@@ -41,14 +54,21 @@ export default function Template({ children }) {
               ) : null}
             </Navbar.Text>
           </Nav>
-          <Form className="d-flex">
+          <Form className="d-flex" onSubmit={handleSubmit}>
             <FormControl
               type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={handleSearch}
             />
-            <Button variant="outline-success">Search</Button>
+            <Link
+              to={{
+                pathname: `/search/${searchValue}`,
+              }}
+            >
+              <Button variant="outline-success">Search</Button>
+            </Link>
           </Form>
         </Navbar.Collapse>
       </Navbar>
