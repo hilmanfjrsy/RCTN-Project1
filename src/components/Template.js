@@ -14,8 +14,6 @@ import { Link } from "react-router-dom";
 import "../Global-styles.css";
 
 export default function Template({ children }) {
-<<<<<<< Updated upstream
-=======
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = (event) => {
@@ -26,7 +24,6 @@ export default function Template({ children }) {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
->>>>>>> Stashed changes
   const saved = useSelector((state) => state.saved.value);
 
   return (

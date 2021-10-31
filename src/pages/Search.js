@@ -1,11 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
 import { useParams } from "react-router";
-<<<<<<< Updated upstream
-// import { Container } from "react-bootstrap";
-=======
-
->>>>>>> Stashed changes
 import CardNews from "../components/CardNews";
+
+// import { Container } from "react-bootstrap";
+
 import { getRequest } from "../config/GlobalFunc";
 
 export default function Search() {
