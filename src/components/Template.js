@@ -15,6 +15,7 @@ import "../Global-styles.css";
 
 export default function Template({ children }) {
   const [searchValue, setSearchValue] = useState("");
+  const saved = useSelector((state) => state.saved.value);
 
   const handleSearch = (event) => {
     const value = event.target.value;
@@ -24,7 +25,6 @@ export default function Template({ children }) {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
-  const saved = useSelector((state) => state.saved.value);
 
   return (
     <Container fluid>
@@ -51,6 +51,7 @@ export default function Template({ children }) {
               ) : null}
             </Navbar.Text>
           </Nav>
+
           <Form className="d-flex" onSubmit={handleSubmit}>
             <FormControl
               type="search"
