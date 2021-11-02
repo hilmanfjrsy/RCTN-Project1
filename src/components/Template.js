@@ -13,7 +13,6 @@ export default function Template({ children }) {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
-  const saved = useSelector((state) => state.saved.value);
 
   return (
     <>
