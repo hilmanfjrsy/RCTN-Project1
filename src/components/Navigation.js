@@ -44,11 +44,6 @@ const Navigation = () => {
                 Covid-19
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/indonesia" className="nav-link">
-                Indonesia
-              </Link>
-            </li>
             <li className="nav-item position-relative">
               <Link to="/saved" className="nav-link">
                 Saved
