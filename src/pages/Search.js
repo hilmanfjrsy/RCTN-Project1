@@ -20,7 +20,7 @@ export default function Search() {
     searchNews();
   }, [searchParams]);
   return (
-    <div className="style-Indo">
+    <div className="wrap container">
       {search.map((item, index) => (
         <CardNews item={item} index={index} key={index} />
       ))}
