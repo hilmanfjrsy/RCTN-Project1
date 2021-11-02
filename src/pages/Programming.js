@@ -6,63 +6,58 @@ import { getRequest } from "../config/GlobalFunc";
 import CardNews from "../components/CardNews";
 
 const Programming = () => {
-  const [programming, setProramming] = useState([]);
-  const [trendings, setTrendings] = useState([]);
+  const pages = 1
   const [lastProgramming, setLastProgramming] = useState([]);
+  const [oneMonthProgram, setOneMonthProgram] = useState([]);
   var LastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
-  async function newsProgramming() {
+
+  async function lastOneMonthProgramming() {
     let res = await getRequest(
-      `v2/everything?q=programming&from=${LastOneMonth}&sortBy=trending&lenguage=en&pageSize=1`
+      `v2/everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
     );
-    setProramming(res.data.articles);
+    setLastProgramming(res.data.articles);
+    
   }
-  async function newsTrendings(){
-    let res = await getRequest(`v2/everything?q=programming&from=${LastOneMonth}&sortBy=trendings&lenguage=en&pageSize=3`)
-    console.log(res.data.articles)
-    setTrendings(res.data.articles)
-}
-async function lastOneMonthProgramming(){
-  let res = await getRequest(`v2/everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`)
-  setLastProgramming(res.data.articles)
-}
+  async function oneMonthProgramming({newPages}) {
+    console.log(newPages)
+    let res = await getRequest(
+      `v2/everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${newPages}`
+    );
+    setOneMonthProgram(res.data.articles);
+    
+  }
+
+  // useEffect(() => {
+  //   lastOneMonthProgramming();
+  // }, []);
 
   useEffect(() => {
-    newsProgramming();
-    newsTrendings();
     lastOneMonthProgramming();
+    window.addEventListener("scroll", () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      console.log({ scrollTop, scrollHeight, clientHeight });
+
+      if (clientHeight + scrollTop === scrollHeight) {
+        const newPages = pages + 1
+        oneMonthProgramming({newPages});
+       console.log("Load more pages")
+      }
+    });
   }, []);
+  
   return (
     <div className="container mt-5">
-      <div className="row">
-        <div className="col-sm-7">
-        <div>
-          {programming.map((item, index) => {
-           return <BigCard
-           Url={item.url}
-            key={index}
-            urlImage={item.urlToImage}
-            Title={item.title}
-            Desc={item.description}
-            Date={item.publishedAt}
-            />;
-          })}
-        </div>
-        </div>
-        <div className="col-sm-5">
-          
-          {trendings.map((item,index)=>{
-              return <HorizontalCard key={index} Url={item.url} urlImage={item.urlToImage} Title={item.title} Date={moment(item.publishedAt).format('DD MMM YYYY')}/>
-          })}
-        </div>
-      </div>
-      <hr className="hr" />
       <h4 className="mt-5">Programming Last One Month</h4>
       <div className="wrap">
-        {lastProgramming.map((item,index)=>{
-          return <CardNews key={index} item={item} index={index} />
+        {lastProgramming.map((item, index) => {
+          return <CardNews key={index} item={item} index={index} />;
+        })}
+        {oneMonthProgram.map((item, index) => {
+          return <CardNews key={index} item={item} index={index} />;
         })}
       </div>
-      <hr className="hr" />  
+      <hr className="hr" />
     </div>
   );
 };
