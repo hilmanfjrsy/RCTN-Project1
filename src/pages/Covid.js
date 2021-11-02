@@ -1,28 +1,70 @@
-import React, { Component, useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import CardNews from "../components/CardNews";
-import { getRequest } from "../config/GlobalFunc";
+import React, { useState, useEffect } from "react";
+import BigCard from "../components/BigCard";
+import HorizontalCard from "../components/HorizontalCard";
 import moment from "moment";
+import { getRequest } from "../config/GlobalFunc";
+import CardNews from "../components/CardNews";
 
-export default function Covid() {
+const Covid = () => {
   const [covid, setCovid] = useState([]);
+  const [trendings, setTrendings] = useState([]);
+  const [lastCovid, setLastCovid] = useState([]);
   var LastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
-  async function newsCovid() {
+  async function newsProgramming() {
     let res = await getRequest(
-      `v2/everything?q=covid-19&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`
+      `v2/everything?q=covid&from=${LastOneMonth}&sortBy=trending&lenguage=en&pageSize=1`
     );
     setCovid(res.data.articles);
-    console.log(res.data.articles);
   }
+  async function newsTrendings(){
+    let res = await getRequest(`v2/everything?q=covid&from=${LastOneMonth}&sortBy=trendings&lenguage=en&pageSize=3`)
+    console.log(res.data.articles)
+    setTrendings(res.data.articles)
+}
+async function lastOneMonthCovid(){
+  let res = await getRequest(`v2/everything?q=corona-virus&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`)
+  setLastCovid(res.data.articles)
+}
 
   useEffect(() => {
-    newsCovid();
+    newsProgramming();
+    newsTrendings();
+    lastOneMonthCovid();
   }, []);
   return (
-    <div>
-      {covid.map((item, index) => (
-        <CardNews item={item} index={index} key={index} />
-      ))}
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-sm-7">
+        <div>
+          {covid.map((item, index) => {
+           return <BigCard
+           Url={item.url}
+            key={index}
+            urlImage={item.urlToImage}
+            Title={item.title}
+            Desc={item.description}
+            Date={item.publishedAt}
+            />;
+          })}
+        </div>
+        </div>
+        <div className="col-sm-5">
+          
+          {trendings.map((item,index)=>{
+              return <HorizontalCard key={index} Url={item.url} urlImage={item.urlToImage} Title={item.title} Date={moment(item.publishedAt).format('DD MMM YYYY')}/>
+          })}
+        </div>
+      </div>
+      <hr className="hr" />
+      <h4 className="mt-5">Covid-19 Last One Month</h4>
+      <div className="wrap">
+        {lastCovid.map((item,index)=>{
+          return <CardNews key={index} item={item} index={index} />
+        })}
+      </div>
+      <hr className="hr" />  
     </div>
   );
-}
+};
+
+export default Covid;

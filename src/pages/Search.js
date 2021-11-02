@@ -1,8 +1,8 @@
 import React, { Component, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import CardNews from "../components/CardNews";
 
 // import { Container } from "react-bootstrap";
-import CardNews from "../components/CardNews";
 
 import { getRequest } from "../config/GlobalFunc";
 
