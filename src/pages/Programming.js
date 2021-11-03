@@ -1,59 +1,47 @@
 import React, { useState, useEffect } from "react";
-import BigCard from "../components/BigCard";
-import HorizontalCard from "../components/HorizontalCard";
 import moment from "moment";
 import { getRequest } from "../config/GlobalFunc";
 import CardNews from "../components/CardNews";
 
 const Programming = () => {
-  const pages = 1
+  const [pages, setPages] = useState(1)
   const [lastProgramming, setLastProgramming] = useState([]);
-  const [oneMonthProgram, setOneMonthProgram] = useState([]);
-  var LastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
+  const [isFetching, setIsFetching] = useState(false)
+  var lastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
 
   async function lastOneMonthProgramming() {
     let res = await getRequest(
-      `everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
+      `v2/everything?q=programming&from=${lastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
     );
-    setLastProgramming(res.data.articles);
-    
+    setLastProgramming([ ...lastProgramming ,...res.data.articles])
+    setPages(pages+1)
+    setIsFetching(false)
   }
-  async function oneMonthProgramming({newPages}) {
-    console.log(newPages)
-    let res = await getRequest(
-      `everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${newPages}`
-    );
-    setOneMonthProgram(res.data.articles);
-    
+  const isScrolling =()=>{
+    if(window.innerHeight + document.documentElement.scrollTop!==document.documentElement.offsetHeight){
+      return;
+    }
+    setIsFetching(true)
   }
-
-  // useEffect(() => {
-  //   lastOneMonthProgramming();
-  // }, []);
+  
+  useEffect(() => {
+    lastOneMonthProgramming()
+    window.addEventListener("scroll", isScrolling);
+    return () => window.removeEventListener("scroll", isScrolling);
+  }, [])
 
   useEffect(() => {
-    lastOneMonthProgramming();
-    window.addEventListener("scroll", () => {
-      const { scrollTop, scrollHeight, clientHeight } =
-        document.documentElement;
-      console.log({ scrollTop, scrollHeight, clientHeight });
+  if(isFetching){
+    lastOneMonthProgramming()
+  }
+  }, [isFetching])
 
-      if (clientHeight + scrollTop === scrollHeight) {
-        const newPages = pages + 1
-        oneMonthProgramming({newPages});
-       console.log("Load more pages")
-      }
-    });
-  }, []);
   
   return (
     <div className="container mt-5">
       <h4 className="mt-5">Programming Last One Month</h4>
       <div className="wrap">
         {lastProgramming.map((item, index) => {
-          return <CardNews key={index} item={item} index={index} />;
-        })}
-        {oneMonthProgram.map((item, index) => {
           return <CardNews key={index} item={item} index={index} />;
         })}
       </div>
