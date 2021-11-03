@@ -6,8 +6,7 @@ export async function getRequest(path) {
   try {
     const response = await axios.get('https://api-project1.netlify.app/.netlify/functions/api/' + path);
     if(response){
-      console.log(response)
-      return {data:response};
+      return response;
     }
   } catch (error) {
     toast.error(error.message, {
