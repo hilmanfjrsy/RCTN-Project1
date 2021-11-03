@@ -21,7 +21,7 @@ const Programming = () => {
   async function oneMonthProgramming({newPages}) {
     console.log(newPages)
     let res = await getRequest(
-      `v2/everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${newPages}`
+      `everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${newPages}`
     );
     setOneMonthProgram(res.data.articles);
     
