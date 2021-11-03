@@ -11,7 +11,7 @@ export default function Search() {
   const [search, setSearch] = useState([]);
 
   async function searchNews() {
-    let res = await getRequest(`v2/everything?q=${searchParams}`);
+    let res = await getRequest(`everything?q=${searchParams}`);
     setSearch(res.data.articles);
     console.log(res.data.articles);
   }

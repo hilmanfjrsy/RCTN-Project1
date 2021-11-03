@@ -6,7 +6,7 @@ import { getRequest } from "../config/GlobalFunc";
 export default function Indonesia() {
   const [indonesia, setIndonesia] = useState([]);
   async function indonesianNews() {
-    let res = await getRequest("v2/top-headlines?country=id");
+    let res = await getRequest("top-headlines?country=id");
     setIndonesia(res.data.articles);
     console.log(res.data.articles);
   }
