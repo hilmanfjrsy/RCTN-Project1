@@ -4,7 +4,7 @@ import { GlobalVar } from "./GlobalVar";
 
 export async function getRequest(path) {
   try {
-    const response = await axios.get('https://newsapi.org/' + path + "&apiKey=" + GlobalVar.apiKey);
+    const response = await axios.get('https://api-project1.netlify.app/.netlify/functions/api/' + path);
     if(response){
       return response;
     }

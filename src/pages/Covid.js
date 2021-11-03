@@ -12,17 +12,17 @@ const Covid = () => {
   var LastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
   async function newsProgramming() {
     let res = await getRequest(
-      `v2/everything?q=covid&from=${LastOneMonth}&sortBy=trending&lenguage=en&pageSize=1`
+      `everything?q=covid&from=${LastOneMonth}&sortBy=trending&lenguage=en&pageSize=1`
     );
     setCovid(res.data.articles);
   }
   async function newsTrendings(){
-    let res = await getRequest(`v2/everything?q=covid&from=${LastOneMonth}&sortBy=trendings&lenguage=en&pageSize=3`)
+    let res = await getRequest(`everything?q=covid&from=${LastOneMonth}&sortBy=trendings&lenguage=en&pageSize=3`)
     console.log(res.data.articles)
     setTrendings(res.data.articles)
 }
 async function lastOneMonthCovid(){
-  let res = await getRequest(`v2/everything?q=corona-virus&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`)
+  let res = await getRequest(`everything?q=corona-virus&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`)
   setLastCovid(res.data.articles)
 }
 

@@ -13,7 +13,7 @@ const Programming = () => {
 
   async function lastOneMonthProgramming() {
     let res = await getRequest(
-      `v2/everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
+      `everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
     );
     setLastProgramming(res.data.articles);
     

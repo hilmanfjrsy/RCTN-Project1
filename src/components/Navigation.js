@@ -1,9 +1,19 @@
-import React, { useEffect } from "react";
+import React, { Component, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
-  const saved = useSelector((state) => state.saved.value)
+  const saved = useSelector((state) => state.saved.value);
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearchValue(value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <nav className="navbar navbar-expand-lg sticky-top">
@@ -44,34 +54,37 @@ const Navigation = () => {
                 Covid-19
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/indonesia" className="nav-link">
-                Indonesia
-              </Link>
-            </li>
             <li className="nav-item position-relative">
               <Link to="/saved" className="nav-link">
                 Saved
-                <span className="position-absolute mt-1 ml-1 start-100 translate-middle badge rounded-pill bg-warning">
-                  {saved.length == 0 ? null : saved.length > 99 ? '99+' : saved.length}
+                <span class="position-absolute mt-1 ml-1 start-100 translate-middle badge rounded-pill bg-warning">
+                  {saved.length == 0
+                    ? null
+                    : saved.length > 99
+                    ? "99+"
+                    : saved.length}
                 </span>
               </Link>
             </li>
           </ul>
 
-
           <div className="search-box">
-            <button className="btn-search">
-              <i className="fas fa-search" style={{ color: 'black' }}></i>
-            </button>
-            <input
-              type="text"
-              className="input-search"
-              placeholder="Type to Search..."
-            />
+            <Link
+              to={{
+                pathname: `/search/${searchValue}`,
+              }}
+            >
+              <button className="btn-search" onSubmit={handleSubmit}>
+                <i className="fas fa-search" style={{ color: "black" }}></i>
+              </button>
+              <input
+                type="text"
+                className="input-search"
+                placeholder="Type to Search..."
+                onChange={handleSearch}
+              />
+            </Link>
           </div>
-
-
         </div>
       </div>
     </nav>

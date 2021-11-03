@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { Component, useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux'
 import { removeSaved, addSaved } from '../redux/slice/savedSlice'
 import { toast } from 'react-toastify';
