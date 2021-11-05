@@ -1,68 +1,51 @@
 import React, { useState, useEffect } from "react";
-import BigCard from "../components/BigCard";
-import HorizontalCard from "../components/HorizontalCard";
 import moment from "moment";
 import { getRequest } from "../config/GlobalFunc";
 import CardNews from "../components/CardNews";
 
 const Programming = () => {
-  const [programming, setProramming] = useState([]);
-  const [trendings, setTrendings] = useState([]);
+  const [pages, setPages] = useState(1)
   const [lastProgramming, setLastProgramming] = useState([]);
-  var LastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
-  async function newsProgramming() {
+  const [isFetching, setIsFetching] = useState(false)
+  var lastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
+
+  async function lastOneMonthProgramming() {
     let res = await getRequest(
-      `everything?q=programming&from=${LastOneMonth}&sortBy=trending&lenguage=en&pageSize=1`
+      `everything?q=programming&from=${lastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
     );
-    setProramming(res.data.articles);
+    setLastProgramming([ ...lastProgramming ,...res.data.articles])
+    setPages(pages+1)
+    setIsFetching(false)
   }
-  async function newsTrendings(){
-    let res = await getRequest(`everything?q=programming&from=${LastOneMonth}&sortBy=trendings&lenguage=en&pageSize=3`)
-    console.log(res.data.articles)
-    setTrendings(res.data.articles)
-}
-async function lastOneMonthProgramming(){
-  let res = await getRequest(`everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`)
-  setLastProgramming(res.data.articles)
-}
+  const isScrolling =()=>{
+    if(window.innerHeight + document.documentElement.scrollTop!==document.documentElement.offsetHeight){
+      return;
+    }
+    setIsFetching(true)
+  }
+  
+  useEffect(() => {
+    lastOneMonthProgramming()
+    window.addEventListener("scroll", isScrolling);
+    return () => window.removeEventListener("scroll", isScrolling);
+  }, [])
 
   useEffect(() => {
-    newsProgramming();
-    newsTrendings();
-    lastOneMonthProgramming();
-  }, []);
+  if(isFetching){
+    lastOneMonthProgramming()
+  }
+  }, [isFetching])
+
+  
   return (
     <div className="container mt-5">
-      <div className="row">
-        <div className="col-sm-7">
-        <div>
-          {programming.map((item, index) => {
-           return <BigCard
-           Url={item.url}
-            key={index}
-            urlImage={item.urlToImage}
-            Title={item.title}
-            Desc={item.description}
-            Date={item.publishedAt}
-            />;
-          })}
-        </div>
-        </div>
-        <div className="col-sm-5">
-          
-          {trendings.map((item,index)=>{
-              return <HorizontalCard key={index} Url={item.url} urlImage={item.urlToImage} Title={item.title} Date={moment(item.publishedAt).format('DD MMM YYYY')}/>
-          })}
-        </div>
-      </div>
-      <hr className="hr" />
-      <h4 className="mt-5">Programming Last One Month</h4>
+      <h4 className="mt-5 text-center">Programming Last One Month</h4>
       <div className="wrap">
-        {lastProgramming.map((item,index)=>{
-          return <CardNews key={index} item={item} index={index} />
+        {lastProgramming.map((item, index) => {
+          return <CardNews key={index} item={item} index={index} />;
         })}
       </div>
-      <hr className="hr" />  
+      <hr className="hr" />
     </div>
   );
 };
