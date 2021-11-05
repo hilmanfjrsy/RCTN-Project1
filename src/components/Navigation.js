@@ -1,8 +1,9 @@
 import React, { Component, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Navigation = () => {
+  const history = useHistory();
   const saved = useSelector((state) => state.saved.value);
   const [searchValue, setSearchValue] = useState("");
 
@@ -13,6 +14,11 @@ const Navigation = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (searchValue === "") {
+      history.push(`/`);
+    } else {
+      history.push(`/search/${searchValue}`);
+    }
   };
 
   return (
@@ -69,21 +75,18 @@ const Navigation = () => {
           </ul>
 
           <div className="search-box">
-            <Link
-              to={{
-                pathname: `/search/${searchValue}`,
-              }}
-            >
-              <button className="btn-search" onSubmit={handleSubmit}>
-                <i className="fas fa-search" style={{ color: "black" }}></i>
-              </button>
+            <form className="form-input-search" onSubmit={handleSubmit}>
               <input
                 type="text"
-                className="input-search"
+                className="form-on-typing"
                 placeholder="Type to Search..."
                 onChange={handleSearch}
+                value={searchValue}
               />
-            </Link>
+              <button className="btn-search">
+                <i className="fas fa-search" style={{ color: "black" }}></i>
+              </button>
+            </form>
           </div>
         </div>
       </div>
