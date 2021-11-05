@@ -11,7 +11,7 @@ const Programming = () => {
 
   async function lastOneMonthProgramming() {
     let res = await getRequest(
-      `v2/everything?q=programming&from=${lastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
+      `everything?q=programming&from=${lastOneMonth}&sortBy=publishedAt&lenguage=en&page=${pages}`
     );
     setLastProgramming([ ...lastProgramming ,...res.data.articles])
     setPages(pages+1)
@@ -39,7 +39,7 @@ const Programming = () => {
   
   return (
     <div className="container mt-5">
-      <h4 className="mt-5">Programming Last One Month</h4>
+      <h4 className="mt-5 text-center">Programming Last One Month</h4>
       <div className="wrap">
         {lastProgramming.map((item, index) => {
           return <CardNews key={index} item={item} index={index} />;
