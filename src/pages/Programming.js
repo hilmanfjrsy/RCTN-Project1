@@ -12,17 +12,17 @@ const Programming = () => {
   var LastOneMonth = moment().subtract(1, "months").format("YYYY-MM-DD");
   async function newsProgramming() {
     let res = await getRequest(
-      `v2/everything?q=programming&from=${LastOneMonth}&sortBy=trending&lenguage=en&pageSize=1`
+      `everything?q=programming&from=${LastOneMonth}&sortBy=trending&lenguage=en&pageSize=1`
     );
     setProramming(res.data.articles);
   }
   async function newsTrendings(){
-    let res = await getRequest(`v2/everything?q=programming&from=${LastOneMonth}&sortBy=trendings&lenguage=en&pageSize=3`)
+    let res = await getRequest(`everything?q=programming&from=${LastOneMonth}&sortBy=trendings&lenguage=en&pageSize=3`)
     console.log(res.data.articles)
     setTrendings(res.data.articles)
 }
 async function lastOneMonthProgramming(){
-  let res = await getRequest(`v2/everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`)
+  let res = await getRequest(`everything?q=programming&from=${LastOneMonth}&sortBy=publishedAt&lenguage=en`)
   setLastProgramming(res.data.articles)
 }
 
