@@ -1,5 +1,6 @@
 import React, { Component, useEffect } from "react";
 import CardNews from "../components/CardNews";
+import CardLoader from "../components/CardLoader";
 import { useSelector } from "react-redux";
 import EmptyPages from "../components/EmptyPages";
 
