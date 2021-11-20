@@ -1,6 +1,6 @@
 :root {
-  --baseColor: "#16425B";
-  --greyColor: "#D9DCD6";
+  --baseColor: #16425B;
+  --greyColor: #D9DCD6;
 }
 
 a {
